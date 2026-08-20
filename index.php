@@ -1,30 +1,3 @@
-<?php
-// Portfolio contact form handler.
-// For production, configure your server's mail settings or replace this with SMTP/PHPMailer.
-$success = '';
-$error = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $message = trim($_POST['message'] ?? '');
-
-    if ($name === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Please enter a valid name, email, and message.';
-    } else {
-        $to = 'your-email@example.com'; // <-- Replace with your email
-        $subject = 'New Portfolio Message from ' . $name;
-        $body = "Name: {$name}\nEmail: {$email}\n\nMessage:\n{$message}";
-        $headers = "From: {$email}\r\nReply-To: {$email}\r\n";
-
-        if (@mail($to, $subject, $body, $headers)) {
-            $success = 'Thanks! Your message has been sent.';
-        } else {
-            $success = 'Thanks! Your message is ready. Configure SMTP/mail() on the server to deliver it.';
-        }
-    }
-}
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -212,9 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="#" aria-label="GitHub profile">GitHub <span>↗</span></a>
             </div>
         </div>
-        <form class="contact-form reveal delay-1" method="POST" action="#contact">
-            <?php if ($success): ?><div class="form-message success"><?= htmlspecialchars($success) ?></div><?php endif; ?>
-            <?php if ($error): ?><div class="form-message error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+        <form class="contact-form reveal delay-1" action="mailto:your-email@example.com" method="post" enctype="text/plain">
             <label>Your name<input type="text" name="name" placeholder="John Doe" required></label>
             <label>Email address<input type="email" name="email" placeholder="john@example.com" required></label>
             <label>Tell me about the project<textarea name="message" rows="5" placeholder="What are you looking to build?" required></textarea></label>
@@ -227,8 +198,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <footer class="footer">
     <div class="container footer-inner">
         <a href="#home" class="brand"><span>&lt;/&gt;</span> ABHAY<span class="dot">.</span></a>
-        <p>Designed & built with PHP, CSS & JavaScript.</p>
-        <span>© <?= date('Y') ?> All rights reserved.</span>
+        <p>Designed & built with HTML, CSS & JavaScript.</p>
+        <span>© 2026 All rights reserved.</span>
     </div>
 </footer>
 
